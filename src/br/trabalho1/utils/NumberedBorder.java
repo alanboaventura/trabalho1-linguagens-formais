@@ -10,15 +10,8 @@ import java.awt.Insets;
 import javax.swing.JTextArea;
 import javax.swing.border.AbstractBorder;
 
-/**
- * retirado e adaptado de: http://www.guj.com.br/posts/list/123003.java#665398
- * <br>
- */
 public class NumberedBorder extends AbstractBorder {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -5089118025935944759L;
 
     private static int lineHeight;
@@ -41,18 +34,16 @@ public class NumberedBorder extends AbstractBorder {
         g.setColor(myColor);
 
         double r = (double) height / (double) lineHeight;
-        int rows = (int) (r + 0.5);
-        String str = String.valueOf(rows);
         int lineLeft = calculateLeft(height) + 10;
 
-        int px = 0;
-        int py = 0;
-        int lenght = 0;
+        int px;
+        int py;
+        int lenght;
 
         int visibleLines = textArea.getHeight() / lineHeight;
         for (int i = 0; i < visibleLines; i++) {
 
-            str = String.valueOf(i + 1);
+            String str = String.valueOf(i + 1);
             lenght = str.length();
 
             py = lineHeight * i + 14;
