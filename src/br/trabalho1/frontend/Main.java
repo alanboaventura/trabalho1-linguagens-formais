@@ -1,12 +1,16 @@
 package br.trabalho1.frontend;
 
+import br.trabalho1.backend.WordAnalyser;
+import br.trabalho1.backend.WordType;
 import br.trabalho1.utils.NumberedBorder;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.ScrollPaneConstants;
 
 /**
  * Classe que representa a parte gráfica do programa.
  *
- * @author alan.boaventura
+ * @author Alan Boaventura
  */
 public class Main extends javax.swing.JFrame {
 
@@ -50,6 +54,11 @@ public class Main extends javax.swing.JFrame {
         btnAnalisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/trabalho1/icons/start-icon.png"))); // NOI18N
         btnAnalisar.setText("Analisar");
         btnAnalisar.setFocusPainted(false);
+        btnAnalisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnalisarActionPerformed(evt);
+            }
+        });
 
         btnEquipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/trabalho1/icons/team-icon.png"))); // NOI18N
         btnEquipe.setText("Equipe");
@@ -110,8 +119,25 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEquipeActionPerformed
-        outputTextArea.setText("FURB\nSistemas de informação 2018\n\nEquipe de desenvolvimento:\n\nAlan Boaventura\nBryan Leite\nCélio Júnior");
+        outputTextArea.setText("FURB\nSistemas de Informação 2018/1\n\nEquipe de desenvolvimento:\n\nAlan Boaventura\nBryan Leite\nCélio Júnior");
     }//GEN-LAST:event_btnEquipeActionPerformed
+
+    private void btnAnalisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalisarActionPerformed
+        String text = inputTextArea.getText();
+
+        Map<WordType, Integer> wordCountMap = new HashMap<>();
+
+        try {
+            wordCountMap = WordAnalyser.analyseText(text);
+        } catch (IllegalArgumentException e) {
+            outputTextArea.setText(e.getMessage());
+            return;
+        }
+
+        outputTextArea.setText( //
+                String.format("Dados analisados:\n\nMotor: %s\nAno: %s\nValor: %s\nKM: %s\nCombustível: %s", //
+                wordCountMap.get(WordType.MOTOR), wordCountMap.get(WordType.ANO), wordCountMap.get(WordType.VALOR), wordCountMap.get(WordType.KM), wordCountMap.get(WordType.COMBUSTIVEL)));
+    }//GEN-LAST:event_btnAnalisarActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -126,6 +152,7 @@ public class Main extends javax.swing.JFrame {
         }
         java.awt.EventQueue.invokeLater(() -> {
             FRAME_PRINCIPAL.setVisible(true);
+            FRAME_PRINCIPAL.setLocationRelativeTo(null); // Faz o frame iniciar no centro da tela.
         });
     }
 
