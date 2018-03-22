@@ -63,20 +63,21 @@ public class WordAnalyser {
 
         // KM
         p = Pattern.compile("^(0|[1-2]{1}[0-9]{0,2}\\.[0-9]{3}|[1-9]{1}[0-9]{0,2})$");
-        if (p.matcher(palavra).matches()) {
+        if (p.matcher(palavra).matches() && Integer.parseInt(palavra) < 200.000) {
             return WordType.KM;
         }
 
         // Valor
         p = Pattern.compile("^(^R\\$)(0\\,[0-9]{2}|[1-9]{1}[0-9]{0,2}(\\.[0-9]{3}\\,[0-9]{2}|\\,[0-9]{2}))$");
-        if (p.matcher(palavra).matches() && Integer.parseInt(palavra) <= 200.000) {
+        final String rawValue = palavra.replaceAll(",", ".").replaceFirst("\\.", "");
+        if (p.matcher(palavra).matches() && Double.parseDouble(rawValue.substring(2, rawValue.length())) <= Double.parseDouble("999999.99")) {
             return WordType.VALOR;
         }
 
         // Combustível
         p = Pattern.compile("^(?:Álcool|Bicombustível|Diesel|Gasolina)$");
         if (p.matcher(palavra).matches()) {
-            return WordType.KM;
+            return WordType.COMBUSTIVEL;
         }
 
         return null;
