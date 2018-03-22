@@ -3,7 +3,6 @@ package br.trabalho1.frontend;
 import br.trabalho1.backend.WordAnalyser;
 import br.trabalho1.backend.WordType;
 import br.trabalho1.utils.NumberedBorder;
-import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ScrollPaneConstants;
 
@@ -125,7 +124,7 @@ public class Main extends javax.swing.JFrame {
     private void btnAnalisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalisarActionPerformed
         String text = inputTextArea.getText();
 
-        Map<WordType, Integer> wordCountMap = new HashMap<>();
+        Map<WordType, Integer> wordCountMap;
 
         try {
             wordCountMap = WordAnalyser.analyseText(text);
