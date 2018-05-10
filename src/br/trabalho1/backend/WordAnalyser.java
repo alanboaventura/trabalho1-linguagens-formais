@@ -63,7 +63,7 @@ public class WordAnalyser {
 
         // KM
         p = Pattern.compile("^(0|[1-9]{1}[0-9]{0,2}\\.[0-9]{3}|[1-9]{1}[0-9]{0,2})$");
-        if (p.matcher(palavra).matches() && Integer.parseInt(palavra.replace(".", "")) < 200000) {
+        if (p.matcher(palavra).matches() && Integer.parseInt(palavra.replace(".", "")) <= 200000) {
             return WordType.KM;
         }
 
@@ -97,7 +97,7 @@ public class WordAnalyser {
             palavrasPossiveis = "símbolo(s)";
         }
 
-        throw new IllegalArgumentException("Erro na linha " + line + " - " + palavrasPossiveis + " inválido: " + palavraInvalida);
+        throw new IllegalArgumentException("Erro na linha " + line + " - " + palavrasPossiveis + " inválido(s): " + palavraInvalida);
     }
 
     private static void initializeWordCountMap() {
